@@ -1,4 +1,4 @@
-// File: /Users/ariffebriansyah/Documents/Portfolio/Shieldtag_Login_System/sls_frontend/app/layout.js
+// File: C:\Users\staff\Documents\Portfolio\SLS\sls_frontend\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

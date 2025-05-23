@@ -36,9 +36,24 @@ const saveVerificationToken = async ({ email, token }) => {
     await pool.execute(query, [cleanEmail, cleanToken]);
 };
 
+const findToken = async (token) => {
+    const cleanToken = xss(token);
+    const query = `SELECT * FROM EmailVerification WHERE token = ?`;
+    const [result] = await pool.execute(query, [cleanToken]);
+    return result[0];
+};
+
+const deleteToken = async (token) => {
+    const cleanToken = xss(token);
+    const query = `DELETE FROM EmailVerification WHERE token = ?`;
+    await pool.execute(query, [cleanToken]);
+};
+
 module.exports = {
     saveReverifyToken,
     findReverifyToken,
     deleteReverifyToken,
     saveVerificationToken,
+    findToken,
+    deleteToken,
 };

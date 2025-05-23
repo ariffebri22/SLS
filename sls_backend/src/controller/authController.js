@@ -1,15 +1,5 @@
-const {
-    getUserByEmail,
-    resetLoginAttempts,
-    updateLoginFailure,
-    disableUserVerification,
-    verifyEmailNow,
-} = require("../model/userModel");
-const {
-    saveReverifyToken,
-    findReverifyToken,
-    deleteReverifyToken,
-} = require("../model/tokenModel");
+const { getUserByEmail, resetLoginAttempts, updateLoginFailure, disableUserVerification, verifyEmailNow } = require("../model/userModel");
+const { saveReverifyToken, findReverifyToken, deleteReverifyToken, findToken, deleteToken } = require("../model/tokenModel");
 
 const { sendReverifyEmail } = require("../lib/sendEmail");
 const bcrypt = require("bcryptjs");
@@ -38,24 +28,20 @@ const AuthController = {
                 });
             }
 
-            if (user.loginAttempts >= 3) {
-                const lastTry = new Date(user.lastFailedLoginAt);
-                const now = new Date();
-                const waitTime = 30 * 60 * 1000;
+            const now = new Date();
+            const lastTry = new Date(user.lastFailedLoginAt);
+            const waitTime = 30 * 1000;
+            const attempts = user.loginAttempts + 1;
 
-                if (now - lastTry < waitTime) {
-                    return res.status(429).json({
-                        status: 429,
-                        message:
-                            "Too many failed attempts. Try again after 30 minutes.",
-                    });
-                }
+            if (user.loginAttempts > 0 && user.loginAttempts % 3 === 0 && now - lastTry < waitTime) {
+                return res.status(429).json({
+                    status: 429,
+                    message: `Terlalu banyak percobaan login. Coba lagi dalam ${Math.ceil((waitTime - (now - lastTry)) / 1000)} detik.`,
+                });
             }
 
             const isMatch = await bcrypt.compare(cleanPassword, user.password);
             if (!isMatch) {
-                const attempts = user.loginAttempts + 1;
-
                 if (attempts >= 9) {
                     await disableUserVerification(cleanEmail);
                     await updateLoginFailure(cleanEmail, attempts);
@@ -66,16 +52,14 @@ const AuthController = {
 
                     return res.status(403).json({
                         status: 403,
-                        message:
-                            "Akun kamu dibekukan karena terlalu banyak percobaan. Cek email untuk mengaktifkan kembali.",
+                        message: "Akun kamu dibekukan karena terlalu banyak percobaan. Cek email untuk mengaktifkan kembali.",
                     });
                 }
 
                 await updateLoginFailure(cleanEmail, attempts);
-
                 return res.status(401).json({
                     status: 401,
-                    message: "Wrong password",
+                    message: "Password salah",
                 });
             }
 
@@ -104,33 +88,21 @@ const AuthController = {
             const { token } = req.query;
 
             if (!token) {
-                return res.status(400).json({
-                    status: 400,
-                    message: "Token tidak ditemukan",
-                });
+                return res.redirect(`${process.env.CLIENT_URL}/auth/verify-recover-expired`);
             }
 
             const tokenRecord = await findReverifyToken(token);
             if (!tokenRecord) {
-                return res.status(404).json({
-                    status: 404,
-                    message: "Token tidak valid atau sudah kadaluarsa",
-                });
+                return res.redirect(`${process.env.CLIENT_URL}/auth/verify-recover-expired`);
             }
 
             await verifyEmailNow(tokenRecord.email);
             await deleteReverifyToken(token);
 
-            return res.status(200).json({
-                status: 200,
-                message: "Akun berhasil diaktifkan kembali",
-            });
+            return res.redirect(`${process.env.CLIENT_URL}/auth/verify-recover`);
         } catch (err) {
             console.error("verifyRecover Error:", err);
-            return res.status(500).json({
-                status: 500,
-                message: "Internal server error",
-            });
+            return res.redirect(`${process.env.CLIENT_URL}/auth/verify-recover-expired`);
         }
     },
 
@@ -139,31 +111,21 @@ const AuthController = {
             const { token } = req.query;
 
             if (!token) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: "Token tidak ditemukan" });
+                return res.redirect(`${process.env.CLIENT_URL}/auth/verify-email-expired`);
             }
 
             const record = await findToken(token);
             if (!record) {
-                return res
-                    .status(404)
-                    .json({ status: 404, message: "Token tidak valid" });
+                return res.redirect(`${process.env.CLIENT_URL}/auth/verify-email-expired`);
             }
 
             await verifyEmailNow(record.email);
             await deleteToken(token);
 
-            return res.status(200).json({
-                status: 200,
-                message: "Email berhasil diverifikasi, silakan login.",
-            });
+            return res.redirect(`${process.env.CLIENT_URL}/auth/verify-email`);
         } catch (err) {
             console.error("verifyEmail Error:", err);
-            return res.status(500).json({
-                status: 500,
-                message: "Internal server error",
-            });
+            return res.redirect(`${process.env.CLIENT_URL}/auth/verify-email-expired`);
         }
     },
 };

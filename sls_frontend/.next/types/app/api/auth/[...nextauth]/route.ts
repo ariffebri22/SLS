@@ -1,4 +1,4 @@
-// File: /Users/ariffebriansyah/Documents/Portfolio/Shieldtag_Login_System/sls_frontend/app/api/auth/[...nextauth]/route.ts
+// File: C:\Users\staff\Documents\Portfolio\SLS\sls_frontend\app\api\auth\[...nextauth]\route.ts
 import * as entry from '../../../../../../app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 

@@ -25,9 +25,7 @@ const ForgotPasswordController = {
                 });
             }
 
-            const expiresAt = moment()
-                .add(1, "hour")
-                .format("YYYY-MM-DD HH:mm:ss");
+            const expiresAt = moment().add(1, "hour").format("YYYY-MM-DD HH:mm:ss");
             const { token } = await insertResetToken(user.id, expiresAt);
 
             const transporter = nodemailer.createTransport({
@@ -40,11 +38,11 @@ const ForgotPasswordController = {
                 },
             });
 
-            const resetUrl = `${process.env.CLIENT_URL}/auth/reset-password?token=${token}`;
+            const resetUrl = `${process.env.CLIENT_URL}/auth/change?token=${token}`;
             const mailOptions = {
-                from: `"SSGroup Admin" <${process.env.EMAIL_USER}>`,
+                from: `"Noreply" <${process.env.EMAIL_USER}>`,
                 to: email,
-                subject: "Reset Password - SSGroup",
+                subject: "Reset Password",
                 html: `
             <p>Halo <strong>${user.username || user.email}</strong>,</p>
             <p>Kami menerima permintaan untuk mereset password akun Anda.</p>

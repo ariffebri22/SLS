@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -11,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendReverifyEmail = async (to, token) => {
-    const url = `${process.env.CLIENT_URL}/verify-recover?token=${token}`;
+    const url = `${process.env.API_URL}/user/verify-recover?token=${token}`;
     const html = `
     <h3>Akun kamu sementara dibekukan</h3>
     <p>Klik link di bawah untuk mengaktifkan kembali akunmu:</p>
@@ -27,7 +28,7 @@ const sendReverifyEmail = async (to, token) => {
 };
 
 const sendVerificationEmail = async (to, token) => {
-    const url = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+    const url = `${process.env.API_URL}/user/verify-email?token=${token}`;
     const html = `
       <h3>Verifikasi Email Kamu</h3>
       <p>Klik tombol di bawah untuk mengaktifkan akun kamu:</p>

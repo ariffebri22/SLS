@@ -1,4 +1,10 @@
 {
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/auth/login/page": "app/auth/login/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/auth/verify-recover/page": "app/auth/verify-recover/page.js",
+  "/auth/regis/page": "app/auth/regis/page.js",
+  "/auth/forgot/page": "app/auth/forgot/page.js",
+  "/auth/change/page": "app/auth/change/page.js"
 }

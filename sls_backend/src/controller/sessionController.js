@@ -1,13 +1,9 @@
-const {
-    insertLoginSession,
-    updateLogoutSession,
-} = require("../model/loginSessionModel");
+const { insertLoginSession, updateLogoutSession, getLoginSessionsByEmail } = require("../model/loginSessionModel");
 
 const SessionController = {
     storeLoginSession: async (req, res) => {
         try {
-            const { user_id, email, username, ip_address, device_info } =
-                req.body;
+            const { user_id, email, username, ip_address, device_info } = req.body;
 
             console.log({
                 user_id,
@@ -65,6 +61,33 @@ const SessionController = {
             });
         } catch (err) {
             console.error("updateLogoutSession error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Internal server error",
+            });
+        }
+    },
+
+    getUserLoginSessions: async (req, res) => {
+        try {
+            const { email } = req.query;
+
+            if (!email) {
+                return res.status(400).json({
+                    status: 400,
+                    message: "Email is required",
+                });
+            }
+
+            const sessions = await getLoginSessionsByEmail(email);
+
+            return res.status(200).json({
+                status: 200,
+                message: "Login session fetched successfully",
+                sessions,
+            });
+        } catch (err) {
+            console.error("getUserLoginSessions error:", err);
             return res.status(500).json({
                 status: 500,
                 message: "Internal server error",

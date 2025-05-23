@@ -1,21 +1,32 @@
-const {
-    getResetToken,
-    updatePassword,
-    deleteResetToken,
-} = require("../model/authModel");
+const { getResetToken, updatePassword, deleteResetToken } = require("../model/authModel");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
+const axios = require("axios");
 require("dotenv").config();
 
 const ResetPasswordController = {
-    reset: async (req, res, next) => {
+    reset: async (req, res) => {
         try {
-            const { token, newPassword } = req.body;
+            const { token, newPassword, captchaToken } = req.body;
 
-            if (!token || !newPassword) {
+            if (!token || !newPassword || !captchaToken) {
                 return res.status(400).json({
                     status: 400,
-                    message: "Token dan password baru wajib diisi",
+                    message: "Token, password baru, dan captcha wajib diisi",
+                });
+            }
+
+            const verify = await axios.post("https://www.google.com/recaptcha/api/siteverify", null, {
+                params: {
+                    secret: process.env.RECAPTCHA_SECRET_KEY,
+                    response: captchaToken,
+                },
+            });
+
+            if (!verify.data.success) {
+                return res.status(403).json({
+                    status: 403,
+                    message: "Captcha tidak valid",
                 });
             }
 
@@ -39,7 +50,6 @@ const ResetPasswordController = {
 
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             await updatePassword(resetTokenData.user_id, hashedPassword);
-
             await deleteResetToken(token);
 
             return res.status(200).json({

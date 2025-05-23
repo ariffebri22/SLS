@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/ariffebriansyah/Documents/Portfolio/Shieldtag_Login_System/sls_frontend/app/layout\":[\"static/media/569ce4b8f30dc480-s.p.woff2\",\"static/media/93f479601ee12b01-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{},\"appUsingSizeAdjust\":false,\"pagesUsingSizeAdjust\":false}"

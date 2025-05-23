@@ -23,11 +23,7 @@ const createUser = async ({ name, email, passwordHash }) => {
       VALUES (UUID(), ?, ?, ?, NULL, 0)
     `;
         const now = new Date();
-        const [result] = await pool.execute(query, [
-            cleanName,
-            cleanEmail,
-            passwordHash,
-        ]);
+        const [result] = await pool.execute(query, [cleanName, cleanEmail, passwordHash]);
 
         return result.insertId;
     } catch (err) {
