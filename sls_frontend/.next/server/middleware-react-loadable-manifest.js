@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"app/page.js -> ../src/lib/Protect\":{\"id\":\"app/page.js -> ../src/lib/Protect\",\"files\":[\"static/chunks/_app-pages-browser_src_lib_Protect_tsx.js\"]}}"

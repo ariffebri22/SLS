@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "@/*": ["./*"]
+        },
+        "jsx": "preserve",
+        "allowJs": true,
+        "strict": true,
+        "typeRoots": ["../src/types", "./node_modules/@types"]
+    }
+}
