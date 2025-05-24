@@ -1,3 +1,5 @@
+<img src="https://ik.imagekit.io/ucgcz7azi/shieldtag_logo.png?updatedAt=1748094227284" width="3000" alt="cover" />
+
 # 🖥️ Frontend – Shieldtag Login System
 
 This is the frontend interface for the Shieldtag Login System. It is built with **Next.js (App Router)** and includes fully responsive pages for user authentication and account management.
@@ -32,8 +34,8 @@ This is the frontend interface for the Shieldtag Login System. It is built with 
 | `/auth/reset-password`        | Reset password form (via token) |
 | `/auth/verify-email`          | Success page for verification   |
 | `/auth/verify-email-expired`  | Expired token page              |
-| `/authverify-recover`         | Account re-activation success   |
-| `/authverify-recover-expired` | Reverify token expired          |
+| `/auth/verify-recover`         | Account re-activation success   |
+| `/auth/verify-recover-expired` | Reverify token expired          |
 | `/`                           | Home (protected)                |
 
 ---
