@@ -1,13 +1,13 @@
 {
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/auth/change/page": "app/auth/change/page.js",
   "/auth/regis/page": "app/auth/regis/page.js",
   "/auth/login/page": "app/auth/login/page.js",
-  "/auth/verify-email/page": "app/auth/verify-email/page.js",
   "/auth/forgot/page": "app/auth/forgot/page.js",
+  "/auth/change/page": "app/auth/change/page.js",
   "/auth/verify-email-expired/page": "app/auth/verify-email-expired/page.js",
+  "/auth/verify-email/page": "app/auth/verify-email/page.js",
   "/auth/verify-recover/page": "app/auth/verify-recover/page.js",
   "/auth/verify-recover-expired/page": "app/auth/verify-recover-expired/page.js",
   "/page": "app/page.js"
