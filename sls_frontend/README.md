@@ -19,8 +19,7 @@ This is the frontend interface for the Shieldtag Login System. It is built with 
 
 ## 🌐 Deployed On
 
--   **Hostinger** (Static frontend deployment)
--   Live URL: `https://your-frontend-domain.com`
+-   Live URL: `https://sls.ariff.site`
 
 ---
 
