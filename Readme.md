@@ -1,3 +1,5 @@
+<img src="https://ik.imagekit.io/ucgcz7azi/shieldtag_cover.jpg?updatedAt=1748094227313" width="1200" alt="Cover"/>
+
 # 🔐 Shieldtag Login System
 
 This is a complete authentication system project developed for a technical test at [Shieldtag.co](https://shieldtag.co).  
@@ -6,9 +8,6 @@ It includes modern, secure, and scalable features to simulate real-world authent
 ---
 
 ## 🧑‍💻 About the Project
-
-I developed this project from scratch as part of a 3-day technical assessment.  
-I successfully completed it in approximately 20 hours of focused development time.
 
 This system is designed to reflect industry-standard practices for authentication, authorization, session handling, and account security — all built with the purpose of demonstrating real-world implementation readiness.
 
@@ -68,10 +67,10 @@ This system is designed to reflect industry-standard practices for authenticatio
 ## 🌐 Deployment
 
 -   Frontend deployed on:  
-    **https://your-frontend-domain.com** (deployed via Hostinger)
+    **https://sls.ariff.site**
 
 -   Backend:  
-    Deployed securely via Vercel (URL hidden for security)
+    **https://sls-backend-two.vercel.app/**
 
 ---
 
