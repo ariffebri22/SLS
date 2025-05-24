@@ -1,4 +1,4 @@
-<img src="https://ik.imagekit.io/ucgcz7azi/shieldtag_logo.png?updatedAt=1748094227284" widht="2000" alt="Cover"/>
+<img src="https://ik.imagekit.io/ucgcz7azi/shieldtag_logo.png?updatedAt=1748094227284" width="3000" alt="cover" />
 
 # 🛠️ Backend – Shieldtag Login System
 
