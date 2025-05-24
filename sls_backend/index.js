@@ -12,10 +12,19 @@ const Router = require("./src/router");
 const app = express();
 const port = 4000;
 
+const allowedOrigins = ["http://localhost:3000", "https://sls.ariff.site"];
+
 const corsOptions = {
-    origin: "*",
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     optionsSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 
 app.use(helmet());

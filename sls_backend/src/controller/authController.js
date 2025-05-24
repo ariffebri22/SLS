@@ -36,7 +36,7 @@ const AuthController = {
             if (user.loginAttempts > 0 && user.loginAttempts % 3 === 0 && now - lastTry < waitTime) {
                 return res.status(429).json({
                     status: 429,
-                    message: `Terlalu banyak percobaan login. Coba lagi dalam ${Math.ceil((waitTime - (now - lastTry)) / 1000)} detik.`,
+                    message: `Too many login experiments.Try again in ${Math.ceil((waitTime - (now - lastTry)) / 1000)} detik.`,
                 });
             }
 
@@ -52,14 +52,14 @@ const AuthController = {
 
                     return res.status(403).json({
                         status: 403,
-                        message: "Akun kamu dibekukan karena terlalu banyak percobaan. Cek email untuk mengaktifkan kembali.",
+                        message: "Your account has been suspended because of too many experiments.Check email to reactivate.",
                     });
                 }
 
                 await updateLoginFailure(cleanEmail, attempts);
                 return res.status(401).json({
                     status: 401,
-                    message: "Password salah",
+                    message: "Wrong Password",
                 });
             }
 
@@ -98,6 +98,7 @@ const AuthController = {
 
             await verifyEmailNow(tokenRecord.email);
             await deleteReverifyToken(token);
+            await resetLoginAttempts(tokenRecord.email);
 
             return res.redirect(`${process.env.CLIENT_URL}/auth/verify-recover`);
         } catch (err) {

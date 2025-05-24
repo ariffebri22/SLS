@@ -40,17 +40,17 @@ const ForgotPasswordController = {
 
             const resetUrl = `${process.env.CLIENT_URL}/auth/change?token=${token}`;
             const mailOptions = {
-                from: `"Noreply" <${process.env.EMAIL_USER}>`,
+                from: `"No reply" <${process.env.EMAIL_USER}>`,
                 to: email,
                 subject: "Reset Password",
                 html: `
             <p>Halo <strong>${user.username || user.email}</strong>,</p>
-            <p>Kami menerima permintaan untuk mereset password akun Anda.</p>
-            <p>Silakan klik tombol di bawah ini untuk melanjutkan:</p>
+            <p>We accept a request to reset your account password.</p>
+            <p>Please click the button below to continue:</p>
             <a href="${resetUrl}" style="padding:10px 20px; background:#007bff; color:white; text-decoration:none; border-radius:5px;">Reset Password</a>
-            <p>Link ini hanya berlaku selama 1 jam.</p>
-            <p>Jika Anda tidak merasa melakukan permintaan ini, abaikan saja email ini.</p>
-          `,
+            <p> This link is only valid for 1 hour. </p>
+            <p> If you don't feel doing this request, just ignore this email. </p>
+            `,
             };
 
             await transporter.sendMail(mailOptions);

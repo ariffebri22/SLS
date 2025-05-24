@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
 import DOMPurify from "dompurify";
 import ReCAPTCHA from "react-google-recaptcha";
+import Image from "next/image";
+import "../../globals.css";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -38,27 +40,27 @@ export default function RegisterPage() {
 
         // Validasi
         if (!name || name.length < 2) {
-            return toast.error("Nama wajib diisi minimal 2 karakter.");
+            return toast.error("Names must be filled in at least 2 characters.");
         }
 
         if (!isValidEmail(email)) {
-            return toast.error("Format email tidak valid.");
+            return toast.error("Invalid email format.");
         }
 
         if (!isStrongPassword(password)) {
-            return toast.error("Password minimal 6 karakter dan kombinasi huruf/angka.");
+            return toast.error("A minimum password of 6 characters and a combination of letters/numbers.");
         }
 
         if (password !== confirmPassword) {
-            return toast.error("Konfirmasi password tidak cocok.");
+            return toast.error("Password confirmation does not match.");
         }
 
         if (!agreed) {
-            return toast.error("Kamu harus menyetujui syarat & ketentuan.");
+            return toast.error("You must approve the Terms & Conditions.");
         }
 
         if (!captchaToken) {
-            return toast.error("Harap isi captcha.");
+            return toast.error("Please fill in Captcha.");
         }
 
         setLoading(true);
@@ -70,14 +72,14 @@ export default function RegisterPage() {
                 captchaToken,
             });
 
-            toast.success("Registrasi berhasil! Silakan cek email untuk verifikasi.");
+            toast.success("Successful registration! Please check email for verification.");
             setForm({ name: "", email: "", password: "", confirmPassword: "" });
 
             setTimeout(() => {
                 router.push("/auth/login");
             }, 2000);
         } catch (err) {
-            const msg = err.response?.data?.message || "Registrasi gagal.";
+            const msg = err.response?.data?.message || "Failed registration.";
             toast.error(msg);
         } finally {
             setLoading(false);
@@ -86,25 +88,61 @@ export default function RegisterPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4">
-            <Toaster richColors />
-            <form onSubmit={handleRegister} className="w-full max-w-md border shadow p-6 flex flex-col gap-4">
-                <h2 className="text-xl font-semibold text-center">Registrasi</h2>
+            <Toaster position="top-center" richColors />
+            <div className="max-w-md w-full px-10 pt-8 pb-30 shadow-md border border-neutral-300 flex flex-col items-center rounded-4xl font-poppins relative overflow-clip">
+                <Image src="/shieldtag_logo.png" alt="Logo" loading="eager" width={300} height={50} />
 
-                <input type="text" name="name" placeholder="Nama Lengkap" value={form.name} onChange={handleChange} required className="border px-4 py-2 rounded" />
-                <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required className="border px-4 py-2 rounded" />
-                <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} required className="border px-4 py-2 rounded" />
-                <input type="password" name="confirmPassword" placeholder="Konfirmasi Password" value={form.confirmPassword} onChange={handleChange} required className="border px-4 py-2 rounded" />
-                <label className="flex items-center gap-2 text-sm">
-                    <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
-                    Saya menyetujui syarat & ketentuan yang berlaku
-                </label>
+                <form onSubmit={handleRegister} className="w-full flex flex-col gap-4">
+                    <h2 className="text-xl font-semibold text-center font-poppins">Sign up</h2>
 
-                <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={(token) => setCaptchaToken(token)} />
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Nama Lengkap"
+                        value={form.name}
+                        onChange={handleChange}
+                        required
+                        className="border border-neutral-400 outline-none focus:border-2 focus:border-[#2E4898] transition duration-300 ease-in-out rounded-lg px-4 py-2"
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                        className="border border-neutral-400 outline-none focus:border-2 focus:border-[#2E4898] transition duration-300 ease-in-out rounded-lg px-4 py-2"
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={form.password}
+                        onChange={handleChange}
+                        required
+                        className="border border-neutral-400 outline-none focus:border-2 focus:border-[#2E4898] transition duration-300 ease-in-out rounded-lg px-4 py-2"
+                    />
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Konfirmasi Password"
+                        value={form.confirmPassword}
+                        onChange={handleChange}
+                        required
+                        className="border border-neutral-400 outline-none focus:border-2 focus:border-[#2E4898] transition duration-300 ease-in-out rounded-lg px-4 py-2"
+                    />
+                    <label className="flex items-center gap-2 text-sm">
+                        <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />I agree to the terms & conditions that apply
+                    </label>
 
-                <button type="submit" disabled={loading} className="bg-black text-white py-2 rounded disabled:bg-gray-500">
-                    {loading ? "Mendaftarkan..." : "Daftar"}
-                </button>
-            </form>
+                    <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={(token) => setCaptchaToken(token)} />
+
+                    <button type="submit" disabled={loading} className="bg-[#2E4898] text-white py-2 disabled:bg-blue-400 cursor-pointer hover:bg-blue-800 transition duration-300 ease-in-out rounded ">
+                        {loading ? "Register..." : "Sign Up"}
+                    </button>
+                </form>
+                <Image src="/shieldtag_cover.jpg" alt="Cover" loading="eager" width={400} height={0} className="w-full absolute bottom-0 object-cover" />
+            </div>
         </div>
     );
 }

@@ -12,7 +12,7 @@ const ResetPasswordController = {
             if (!token || !newPassword || !captchaToken) {
                 return res.status(400).json({
                     status: 400,
-                    message: "Token, password baru, dan captcha wajib diisi",
+                    message: "Tokens, new passwords, and captcha must be filled",
                 });
             }
 
@@ -26,7 +26,7 @@ const ResetPasswordController = {
             if (!verify.data.success) {
                 return res.status(403).json({
                     status: 403,
-                    message: "Captcha tidak valid",
+                    message: "Captcha is invalid",
                 });
             }
 
@@ -34,7 +34,7 @@ const ResetPasswordController = {
             if (!resetTokenData) {
                 return res.status(410).json({
                     status: 410,
-                    message: "Token tidak ditemukan atau sudah digunakan.",
+                    message: "Tokens are not found or have been used.",
                 });
             }
 
@@ -44,7 +44,7 @@ const ResetPasswordController = {
                 await deleteResetToken(token);
                 return res.status(410).json({
                     status: 410,
-                    message: "Token sudah kadaluarsa.",
+                    message: "Token has expired.",
                 });
             }
 
@@ -54,13 +54,13 @@ const ResetPasswordController = {
 
             return res.status(200).json({
                 status: 200,
-                message: "Password berhasil direset. Silakan login kembali.",
+                message: "The password was successfully reset.Please log in again.",
             });
         } catch (err) {
-            console.error("ResetPassword Error:", err);
+            console.error("Reset Password Error:", err);
             return res.status(500).json({
                 status: 500,
-                message: "Terjadi kesalahan server",
+                message: "Server error occurs",
             });
         }
     },

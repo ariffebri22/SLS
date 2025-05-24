@@ -14,7 +14,7 @@ const AuthController = {
             if (!name || !email || !password || !captchaToken) {
                 return res.status(400).json({
                     status: 400,
-                    message: "Semua field wajib diisi termasuk captchaToken",
+                    message: "All fields must be filled in including captchatoken",
                 });
             }
 
@@ -28,7 +28,7 @@ const AuthController = {
             if (!verify.data.success) {
                 return res.status(403).json({
                     status: 403,
-                    message: "CAPTCHA tidak valid",
+                    message: "Captcha is invalid",
                 });
             }
 
@@ -40,7 +40,7 @@ const AuthController = {
             if (existingUser) {
                 return res.status(409).json({
                     status: 409,
-                    message: "Email sudah terdaftar",
+                    message: "Email is registered",
                 });
             }
 
@@ -59,14 +59,14 @@ const AuthController = {
 
             return res.status(201).json({
                 status: 201,
-                message: "Registrasi berhasil. Silakan cek email untuk verifikasi.",
+                message: "Registration is successful. Please check email for verification.",
                 data: { userId },
             });
         } catch (err) {
             console.error("Register Error:", err);
             return res.status(500).json({
                 status: 500,
-                message: "Terjadi kesalahan server.",
+                message: "Server error occurs.",
             });
         }
     },
