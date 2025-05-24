@@ -64,7 +64,7 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center min-h-screen px-4">
                 <h1 className="text-2xl font-bold mb-4 text-center">Welcome, {session?.user?.name || session?.user?.email}!</h1>
 
-                <button onClick={() => setShowModal(true)} className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                <button onClick={() => setShowModal(true)} className="px-6 py-2 cursor-pointer bg-red-600 text-white rounded hover:bg-red-700 transition">
                     Logout
                 </button>
 
@@ -134,10 +134,10 @@ export default function Home() {
                     <div className="bg-white p-6 rounded-lg shadow-md max-w-sm w-full text-center">
                         <h2 className="text-lg font-semibold mb-4">Sure you want to log out?</h2>
                         <div className="flex justify-center gap-4">
-                            <button onClick={handleConfirmLogout} className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                            <button onClick={handleConfirmLogout} className="px-4 py-2 cursor-pointer bg-red-600 text-white rounded hover:bg-red-700">
                                 Yes, I'm sure
                             </button>
-                            <button onClick={() => setShowModal(false)} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                            <button onClick={() => setShowModal(false)} className="px-4 py-2 cursor-pointer bg-gray-300 rounded hover:bg-gray-400">
                                 Cancel
                             </button>
                         </div>

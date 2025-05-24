@@ -15,14 +15,15 @@ const geistMono = Geist_Mono({
 export const metadata = {
     title: "Shieldtag Login System",
     description: "Dashboard",
+    icons: {
+        icon: "/favicon.png",
+    },
 };
 
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <Providers>{children}</Providers>
             </body>
         </html>
