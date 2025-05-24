@@ -1,3 +1,5 @@
+<img src="https://ik.imagekit.io/ucgcz7azi/shieldtag_logo.png?updatedAt=1748094227284" widht="2000" alt="Cover"/>
+
 # 🛠️ Backend – Shieldtag Login System
 
 This is the backend API service for the Shieldtag Login System, responsible for all authentication logic, secure session management, and sensitive operations such as password reset and email verification.
@@ -10,6 +12,7 @@ This is the backend API service for the Shieldtag Login System, responsible for 
 -   **MySQL** as relational database
 -   **Nodemailer** for email delivery (SMTP)
 -   **bcryptjs** for password hashing
+-   **jwt** for tokenirize
 -   **xss** for input sanitization
 -   **uuid** for unique token generation
 -   **moment.js** for time calculations
@@ -18,8 +21,7 @@ This is the backend API service for the Shieldtag Login System, responsible for 
 
 ## 🌐 Deployed On
 
--   **Vercel** (as a secure serverless API deployment)
--   API URL is secured and not publicly disclosed
+-   **https://sls-backend-two.vercel.app/**
 
 ---
 
